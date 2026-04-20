@@ -1,80 +1,54 @@
 class Car:
-    """
-    Basic car class.
+    # class variable
+    car_id = 1
 
-    This class stores common information about a car.
-    """
+    def __init__(self, brand: str, model: str, year: int, price: float, mileage: int):
+        #car information
+        self.car_id = Car.car_id
+        Car.car_id += 1
 
-    def __init__(self, brand: str, model: str, price: float):
-        
-        #Car object
-
-        #brand
-        #model
-        #price
-    
         self.brand = brand
         self.model = model
+        self.year = year
         self.price = price
-        self.available = True  #Car is available by default
+        self.mileage = mileage
+
+        # car is available when first added
+        self._available = True
+
+    def is_available(self):
+        return self._available
+    
+    def sell(self):
+        self._available = False
 
     def get_info(self):
-        
-        #Return car information as a string
-        
-        return f"{self.brand} {self.model} - {self.price}€"
-
-    def sell_car(self):
-        """
-        Mark the car as sold.
-        """
-        self.available = False
-
-
+        #basic information about the car
+        if self._available:
+            status = "Available"
+        else: status = "Sold"
+        return f"ID: {self.car_id} \n {self.brand} {self.model} \nYear: {self.year}\n Price: {self.price}€\n Mileage: {self.mileage} km\n Status: {status}"
 class ElectricCar(Car):
-    
-    #inherits from Car
-    #adds battery capacity
-    
+    def __init__(self, brand: str, model: str, year: int, price: float, mileage: int, battery_capacity: int):
+        # call the parent class constructor
+        super().__init__(brand, model, year, price, mileage)
 
-    def __init__(self, brand: str, model: str, price: float, battery_capacity: int):
-        """
-        Create a new electric car.
-
-        Args:
-            battery_capacity (int): Battery size in kWh
-        """
-        super().__init__(brand, model, price)
-        self.battery_capacity: int = battery_capacity
-
-    def get_info(self) -> str:
-        """
-        Return electric car information.
-        Overrides the base class method.
-        """
-        return f"{self.brand} {self.model} - {self.price}€ - Battery: {self.battery_capacity} kWh"
-
-
-class GasCar(Car):
-    """
-    GasCar inherits from Car.
-
-    This class adds fuel type.
-    """
-
-    def __init__(self, brand: str, model: str, price: float, fuel_type: str):
-        """
-        Create a new gas car.
-
-        Args:
-            fuel_type (str): For example petrol or diesel
-        """
-        super().__init__(brand, model, price)
-        self.fuel_type: str = fuel_type
+        # extra information only for electric cars
+        self.battery_capacity = battery_capacity
 
     def get_info(self):
-        """
-        Return gas car information.
-        Overrides the base class method.
-        """
-        return f"{self.brand} {self.model} - {self.price}€ - Fuel: {self.fuel_type}"
+        # overrides Car
+        status = "Available" if self._available else "Sold"
+        return f"ID: {self.car_id} | {self.brand} {self.model} | Year: {self.year} | Price: {self.price}€ | Mileage: {self.mileage} km | Battery: {self.battery_capacity} kWh | Status: {status}"
+class GasCar(Car):
+    def __init__(self, brand: str, model: str, year: int, price: float, mileage: int, fuel_type: str):
+        #parent class constructor
+        super().__init__(brand, model, year, price, mileage)
+
+        # extra information only for gas cars
+        self.fuel_type = fuel_type
+
+    def get_info(self):
+        # overrides Car
+        status = "Available" if self._available else "Sold"
+        return f"ID: {self.car_id} | {self.brand} {self.model} | Year: {self.year} | Price: {self.price}€ | Mileage: {self.mileage} km | Fuel: {self.fuel_type} | Status: {status}"
