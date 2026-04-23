@@ -1,42 +1,43 @@
-
 from car import Car
 
-#customer class
-#customer can own multiple cars.
 
 class Customer:
-    #Class variable
+    # class variable
     ID = 1
 
-    def __init__(self, name: str, email: str, customer_id: int):
-        #basic customer information
+    def __init__(self, name: str, email: str, phone_number: str):
+        # basic customer information
+        self.customer_id = Customer.ID
+        Customer.ID += 1
+
         self.name = name
         self.email = email
+        self.phone_number = phone_number
 
-
-        self.customer_id = Customer.next_id
-        Customer.next_id += 1
-
-        #list of cars owned by the customer
-        self.owned_cars: list = []
+        # encapsulated list of customer cars
+        self._owned_cars = []
 
     def buy_car(self, car: Car):
-        #customer buys a car if available
-        if car.available:
-            self.owned_cars.append(car)
-            car.sell_car()
+        # adds a car to the customer's list if the car is available
+        if car.is_available():
+            self._owned_cars.append(car)
+            car.sell()
         else:
-            print("Car is not available.")
+            print("This car is not available.")
 
-    def show_cars(self):
-        #show all cars owned by the customer
-        if not self.owned_cars:
-            print(f"{self.name} has no cars.")
+    def show_owned_cars(self):
+        # prints all cars owned by the customer
+        if len(self._owned_cars) == 0:
+            print(f"{self.name} does not own any cars.")
         else:
-            print(f"{self.name}'s cars:")
-            for car in self.owned_cars:
+            print(f"Cars owned by {self.name}:")
+            for car in self._owned_cars:
                 print(car.get_info())
 
+    def get_owned_cars(self):
+        # returns the list of owned cars
+        return self._owned_cars
+
     def get_info(self):
-        #return basic customer info
-        return f"{self.customer_id}: {self.name} ({self.email})"
+        # returns customer information as a string
+        return f"Customer ID: {self.customer_id} | Name: {self.name} | Email: {self.email} | Phone: {self.phone_number}"
