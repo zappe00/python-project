@@ -28,6 +28,7 @@ class Car:
             status = "Available"
         else: status = "Sold"
         return f"ID: {self.car_id} \n {self.brand} {self.model} \nYear: {self.year}\n Price: {self.price}€\n Mileage: {self.mileage} km\n Status: {status}"
+# Inheritance: ElectricCar inherits from Car
 class ElectricCar(Car):
     def __init__(self, brand: str, model: str, year: int, price: float, mileage: int, battery_capacity: int):
         # call the parent class constructor
@@ -37,7 +38,7 @@ class ElectricCar(Car):
         self.battery_capacity = battery_capacity
 
     def get_info(self):
-        # overrides Car
+        # Polymorphism / overriding the get_info method
         status = "Available" if self._available else "Sold"
         return f"ID: {self.car_id} | {self.brand} {self.model} | Year: {self.year} | Price: {self.price}€ | Mileage: {self.mileage} km | Battery: {self.battery_capacity} kWh | Status: {status}"
 class GasCar(Car):

@@ -15,9 +15,11 @@ class Customer:
         self.phone_number = phone_number
 
         # encapsulated list of customer cars
+        # Association / Customer owns many Cars
         self._owned_cars = []
 
     def buy_car(self, car: Car):
+        # Objects passed as function arguments: car is a Car object
         # adds a car to the customer's list if the car is available
         if car.is_available():
             self._owned_cars.append(car)
