@@ -1,3 +1,4 @@
+#Base class Car
 class Car:
     # class variable
     car_id = 1
@@ -28,7 +29,7 @@ class Car:
             status = "Available"
         else: status = "Sold"
         return f"ID: {self.car_id} \n {self.brand} {self.model} \nYear: {self.year}\n Price: {self.price}€\n Mileage: {self.mileage} km\n Status: {status}"
-# Inheritance: ElectricCar inherits from Car
+# ElectricCar inherits from Car
 class ElectricCar(Car):
     def __init__(self, brand: str, model: str, year: int, price: float, mileage: int, battery_capacity: int):
         # call the parent class constructor
