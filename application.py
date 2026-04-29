@@ -21,17 +21,17 @@ def test_data(dealership: Dealership):
     dealership.add_customer(customer1)
     dealership.add_customer(customer2)
 
-    # Sell a car to demonstrate sales functionality
+    # Sell a car
     dealership.sell_car(1, 1, "15.11.2025")
 
-    # Add a service booking to demonstrate service functionality
+    # Add a service booking
     dealership.add_service_booking(1, 2, "Oil change", "20.11.2025")
 
 
 def run_tests(dealership: Dealership):
-    # Run assertions to test the functionality
+    # Run assertions
 
-    # Test cars
+    # Cars
     assert len(dealership.get_cars()) == 4
     assert dealership.find_car_by_id(1).brand == "Tesla"
     assert dealership.find_car_by_id(1).is_available() == False  # Sold
@@ -39,19 +39,19 @@ def run_tests(dealership: Dealership):
     assert dealership.find_car_by_id(3).brand == "BMW"
     assert dealership.find_car_by_id(4).model == "Leaf"
 
-    # Test customers
+    # Customers
     assert len(dealership.get_customers()) == 2
     assert dealership.find_customer_by_id(1).name == "Jasper Uusitalo"
     assert dealership.find_customer_by_id(2).email == "anna@email.com"
 
-    # Test sales
+    # Sales
     assert len(dealership.get_sales()) == 1
     sale = dealership.get_sales()[0]
     assert sale.customer.name == "Jasper Uusitalo"
     assert sale.car.brand == "Tesla"
     assert sale.sale_date == "15.11.2025"
 
-    # Test service bookings
+    # Service bookings
     assert len(dealership.get_service_bookings()) == 1
     booking = dealership.get_service_bookings()[0]
     assert booking.customer.name == "Jasper Uusitalo"
@@ -59,7 +59,7 @@ def run_tests(dealership: Dealership):
     assert booking.service_type == "Oil change"
     assert booking.date == "20.11.2025"
 
-    # Test customer owned cars
+    # Customer owned cars
     customer1 = dealership.find_customer_by_id(1)
     assert len(customer1.get_owned_cars()) == 1
     assert customer1.get_owned_cars()[0].brand == "Tesla"
